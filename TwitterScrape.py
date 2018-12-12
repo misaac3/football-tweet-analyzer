@@ -1,28 +1,13 @@
 import tweepy
 import csv
+import re
+
 consumer_key = "FFuenK6DaXIw4OiKFYagTDy6J"
 consumer_secret = "4wWFRXWAdLXNfgmvo5eYiuCspl2ugyVqXBdJZPR4LcOBqiNb8e"
 
 access_token = "1072216336259002368-pW3IGbVm38hGG5gFTyw3W7uEh6irIg"
 access_token_secret = "IocFyre5MmvQWS8cYGIvUOQvDlVZE0Zi1EP2LLz2qQAPJ"
-# auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-# auth.set_access_token(access_token, access_token_secret)
-#
-# api = tweepy.API(auth)
-#
-#
-# # override tweepy.StreamListener to add logic to on_status
-# class MyStreamListener(tweepy.StreamListener):
-#
-#     def on_status(self, status):
-#         with open("premIDs.txt", "a", encoding="utf-8") as f:
-#             f.write(status.text)
-#
-#
-#
-# myStreamListener = MyStreamListener()
-# myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener)
-# myStream.filter(track=['soccer'])
+
 
 def get_all_tweets(screen_name):
     # Twitter only allows access to a users most recent 3240 tweets with this method
@@ -61,28 +46,40 @@ def get_all_tweets(screen_name):
         print("...%s tweets downloaded so far" % (len(alltweets)))
 
         # transform the tweepy tweets into a 2D array that will populate the csv
-        outtweets = [[tweet.id_str, tweet.created_at, tweet.text] for tweet in alltweets]
+        outtweets = [[tweet.text] for tweet in alltweets]
 
         for line in outtweets:
-            text = line[2]
-
+            # remove \n
+            text = line[0]
             text = text.split('\n')
+            line[0] = " ".join(text)
+
+            # remove ...
+            # text = line[0]
+            # text = text.split('...')
+            # line[0] = " ".join(text)
+            # line[0].replace('...', '')
+            line[0] = line[0].strip("…")
+
+            # replace &amp with and
+            line[0].replace('&amp', 'and')
+
+            line[0] = re.sub(r'http\S+', '', line[0])
 
 
-            line[2] = " ".join(text)
-            line[2].replace('&amp', 'and')
-
-            print(line)
+            # if line[0][-1] == ".":
+            #     line[0] = line[0][:-3]
+            print(line[0])
 
             # write the csv
-        with open('EPL_tweets.csv', 'a', encoding="utf-8") as f:
+        with open('NFL_tweets.csv', 'a', encoding="utf-8") as f:
             writer = csv.writer(f)
-            writer.writerow(["id","created_at","text"])
-            writer.writerows(outtweets)
-
+            writer.writerow(["text", "label"])
+            for line in outtweets:
+                writer.writerow([line[0], "1"])
         pass
 
 
 if __name__ == '__main__':
     # pass in the username of the account you want to download
-    get_all_tweets("OptaJoe")
+    get_all_tweets("NFLResearch")
