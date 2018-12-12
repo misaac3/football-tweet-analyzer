@@ -1,22 +1,7 @@
-NFLdata = readtable("NFL_tweets.csv", "TextType", "string");
-EPLdata = readtable("EPL_tweets.csv", "TextType", "string");
+data = readtable("tweets.csv", "TextType", "string");
+textdata = data.text;
 
-NFLdata = NFLdata.text;
-EPLdata = EPLdata.text;
+document = twitter_analysis(textdata);
 
-nflDocument = twitter_analysis(NFLdata);
-eplDocument = twitter_analysis(EPLdata);
-
-cleanBagNFL = bagOfWords(nflDocument);
-cleanBagEPL = bagOfWords(eplDocument);
-
-cleanBagNFL = removeInfrequentWords(cleanBagNFL,2);
-cleanBagEPL = removeInfrequentWords(cleanBagEPL,2);
-
-figure
-subplot(1,2,1)
-wordcloud(cleanBagNFL);
-title("NFL")
-subplot(1,2,2)
-wordcloud(cleanBagEPL);
-title("EPL")
+cleanBag = bagOfWords(document);
+cleanBag = removeInfrequentWords(cleanBag,2);

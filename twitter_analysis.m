@@ -1,4 +1,5 @@
 function [documents] = twitter_analysis(textData)
+load stopwords_list
 % Convert the text data to lowercase.
 cleanTextData = lower(textData);
 
@@ -9,7 +10,7 @@ documents = tokenizedDocument(cleanTextData);
 documents = erasePunctuation(documents);
 
 % Remove a list of stop words.
-documents = removeStopWords(documents);
+documents = removeWords(documents, stopwords_list);
 
 % Remove words with 2 or fewer characters, and words with 15 or greater
 % characters.
