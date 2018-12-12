@@ -1,8 +1,6 @@
-filename = "2010clean.xlsx";
-data = readtable(filename,'TextType','string');
-textData = data.text;
+function [documents] = twitter_analysis(textData)
+% Convert the text data to lowercase.
 cleanTextData = lower(textData);
-cleanTextData = erase(cleanTextData, "#");
 
 % Tokenize the text.
 documents = tokenizedDocument(cleanTextData);
@@ -21,17 +19,4 @@ documents = removeLongWords(documents,15);
 % Lemmatize the words.
 documents = addPartOfSpeechDetails(documents);
 documents = normalizeWords(documents,'Style','lemma');
-cleanBag = bagOfWords(documents).tfidf;
-cleanBag = removeInfrequentWords(cleanBag,2);
-[cleanBag,idx] = removeEmptyDocuments(cleanBag);
-
-rawDocuments = tokenizedDocument(textData);
-rawBag = bagOfWords(rawDocuments).tfidf;
-
-figure
-subplot(1,2,1)
-wordcloud(rawBag);
-title("Raw Data")
-subplot(1,2,2)
-wordcloud(cleanBag);
-title("Clean Data")
+end

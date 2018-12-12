@@ -30,7 +30,7 @@ def get_all_tweets(screen_name):
     oldest = alltweets[-1].id - 1
     c = 0
     # keep grabbing tweets until there are no tweets left to grab
-    while len(new_tweets) > 0 and c < 5:
+    while len(new_tweets) > 0 and c < 10:
         c += 1
         print("getting tweets before %s" % (oldest))
 
@@ -62,8 +62,7 @@ def get_all_tweets(screen_name):
             line[0] = line[0].strip("…")
 
             # replace &amp with and
-            line[0].replace('&amp', 'and')
-
+            line[0].replace('&amp;', 'and')
             line[0] = re.sub(r'http\S+', '', line[0])
 
 
