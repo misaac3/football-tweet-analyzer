@@ -17,7 +17,9 @@ documents = removeWords(documents, stopwords_list);
 documents = removeShortWords(documents,2);
 documents = removeLongWords(documents,15);
 
-% Lemmatize the words.
+%% Lemmatize data. 
+%  To perform stemming, you must be on Matlab 2018b OR Matlab Online
+
 documents = addPartOfSpeechDetails(documents);
 documents = normalizeWords(documents,'Style','lemma');
 end
