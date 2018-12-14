@@ -18,9 +18,10 @@ documents = removeShortWords(documents,2);
 documents = removeLongWords(documents,15);
 
 
-%% Lemmatize data. 
-%  To perform stemming, you must be on Matlab 2018b OR Matlab Online
-
+%% Normalize data. 
+%  To perform lemmatization, you must be on Matlab 2018b OR Matlab Online
 %documents = addPartOfSpeechDetails(documents);
- documents = normalizeWords(documents); % Stemming
+%documents = normalizeWords(documents, 'Style', 'lemma');
+
+documents = normalizeWords(documents); % Stemming
 end
