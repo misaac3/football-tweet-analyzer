@@ -30,7 +30,7 @@ test_tweet_processed = twitter_analysis(test_tweet);
 Xt = addDocument(cleanBag, test_tweet_processed);
 
 label = predict(Model, full(Xt.Counts(end, 1:cleanBag.NumWords)));
-
+%
 disp('Tweet: ' + test_tweet)
 if label{1,1} == '0'
     disp('Prediction: NFL')
