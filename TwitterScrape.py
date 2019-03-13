@@ -2,11 +2,11 @@ import tweepy
 import csv
 import re
 
-consumer_key = "FFuenK6DaXIw4OiKFYagTDy6J"
-consumer_secret = "4wWFRXWAdLXNfgmvo5eYiuCspl2ugyVqXBdJZPR4LcOBqiNb8e"
+consumer_key = "****"
+consumer_secret = "****"
 
-access_token = "1072216336259002368-pW3IGbVm38hGG5gFTyw3W7uEh6irIg"
-access_token_secret = "IocFyre5MmvQWS8cYGIvUOQvDlVZE0Zi1EP2LLz2qQAPJ"
+access_token = "****"
+access_token_secret = "***"
 
 
 def get_all_tweets(screen_name, label):
